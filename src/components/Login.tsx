@@ -3,14 +3,14 @@ import { useState } from "react";
 import { User } from "../models/User";
 
 interface ILoginProps {
-    currentUser: User | undefined; // union types (this or that)
-    setCurrentUser: (nextUser: User) => void;
-  }
+  currentUser: User | undefined; // union types (this or that)
+  setCurrentUser: (nextUser: User) => void;
+}
 
 function Login(props: ILoginProps) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   let updateEmail = (e: SyntheticEvent) => {
     setEmail((e.target as HTMLInputElement).value);
