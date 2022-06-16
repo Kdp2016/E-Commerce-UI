@@ -1,4 +1,5 @@
 import React, { SyntheticEvent } from 'react';
+import '../css/register.css';
 import { useState } from 'react';
 const Register = () => {
 
@@ -40,6 +41,7 @@ const Register = () => {
     }
     let updateZipcode = (e: SyntheticEvent) => {
         setZipcode((e.target as HTMLInputElement).value);
+        let Zipcodenumber = parseInt(zipcode);
     }
 
     function validateEmail(email: string) {
@@ -59,8 +61,11 @@ const Register = () => {
         } else if (state.length !== 2) {
             setMessage('State Postal Abbreviate must be 2 letters IE: NY');
         }
-        else if (zipcode.length !== 6) {
-            setMessage('Zip code is numbers only and must be 6 digits long.')
+        else if (zipcode.length !== 5) {
+            setMessage('Zip code must be 5 digits long.');
+        }
+        else if (isNaN(+zipcode)) {
+            setMessage('Zip code must be numbers only.');
         }
 
         else {
@@ -70,19 +75,19 @@ const Register = () => {
 
     return (
         <>
-            <h1>Register Page</h1>
-            <input type="text" placeholder='Enter First Name' onChange={updateFirstName}></input>
-            <input type="text" placeholder='Enter Last Name' onChange={updateLastName}></input>
-            <input type="email" placeholder='Enter Email' onChange={updateEmail}></input>
-            <input type="password" placeholder='Enter Password' onChange={updatePassword}></input>
-            <input type="password" placeholder='Enter Repeat Password' onChange={updateRepeatPassword}></input>
-            <input type="text" placeholder='Enter Street Adress' onChange={updateStreetAdress}></input>
-            <input type="text" placeholder='Enter City Name' onChange={updateCity}></input>
-            <input type="text" placeholder='Enter State Abbreviation' onChange={updateState}></input>
-            <input type="text" placeholder='Enter Zip Code' onChange={updateZipcode}></input>
-            <button onClick={register}>Register</button>
-            {message && <p>{message}</p>}
-
+            <div className="registration"> <h1>Register Page</h1>
+                <input type="text" placeholder='Enter First Name' onChange={updateFirstName}></input>
+                <input type="text" placeholder='Enter Last Name' onChange={updateLastName}></input>
+                <input type="email" placeholder='Enter Email' onChange={updateEmail}></input>
+                <input type="password" placeholder='Enter Password' onChange={updatePassword}></input>
+                <input type="password" placeholder='Enter Repeat Password' onChange={updateRepeatPassword}></input>
+                <input type="text" placeholder='Enter Street Adress' onChange={updateStreetAdress}></input>
+                <input type="text" placeholder='Enter City Name' onChange={updateCity}></input>
+                <input type="text" placeholder='Enter State Abbreviation' onChange={updateState}></input>
+                <input type="text" placeholder='Enter Zip Code' onChange={updateZipcode}></input>
+                {message && <p>{message}</p>}
+                <button onClick={register}>Register</button>
+            </div>
         </>
     )
 }

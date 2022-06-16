@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
+import { Route, Routes } from "react-router-dom"
+import { useState } from 'react';
+import { User } from './models/User';
 
 function App() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundColor: "magenta"
-      }}
-    >
+  const [authUser, setAuthUser] = useState<User>();
 
-      <>
-        <Login />
-        <Register />
-      </>
-    </div>
+  return (
+    <>
+      <Navbar currentUser={authUser} setCurrentUser={setAuthUser} />
+
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <Login currentUser={authUser} setCurrentUser={setAuthUser} />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Register />
+          }
+        />
+        <Route
+          path="/dashboard"
+        //element={<Dashboard currentUser={authUser} />}
+        />
+      </Routes>
+    </>
   );
 }
 
