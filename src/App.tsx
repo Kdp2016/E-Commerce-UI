@@ -3,17 +3,34 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
 import { Route, Routes} from "react-router-dom"
+import { useState } from 'react';
+import { User } from './models/User';
 
 function App() {
+  const [authUser, setAuthUser] = useState<User>();
+
   return (
     <>
-      <Navbar />
-      <div className='conatainer'>
+      <Navbar currentUser={authUser} setCurrentUser={setAuthUser} />
+
         <Routes>
-          <Route path='/register'   element={<Register/>}></Route>
-          <Route path='/login'   element={<Login/>}></Route>
+          <Route
+            path="/login"
+            element={
+              <Login currentUser={authUser} setCurrentUser={setAuthUser} />
+            }
+          />
+           <Route
+            path="/register"
+            element={
+              <Register/>
+            }
+          />
+          <Route
+            path="/dashboard"
+            //element={<Dashboard currentUser={authUser} />}
+          />
         </Routes>
-      </div>
     </>
   );
 }

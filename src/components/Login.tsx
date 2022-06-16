@@ -1,7 +1,13 @@
 import { SyntheticEvent } from "react";
 import { useState } from "react";
+import { User } from "../models/User";
 
-function Login(props: {}) {
+interface ILoginProps {
+    currentUser: User | undefined; // union types (this or that)
+    setCurrentUser: (nextUser: User) => void;
+  }
+
+function Login(props: ILoginProps) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
