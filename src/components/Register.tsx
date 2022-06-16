@@ -7,6 +7,10 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
+    const [streetAdress, setStreetAdress] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipcode, setZipcode] = useState("");
 
     const [message, setMessage] = useState("");
 
@@ -25,6 +29,18 @@ const Register = () => {
     let updateRepeatPassword = (e: SyntheticEvent) => {
         setRepeatPassword((e.target as HTMLInputElement).value);
     }
+    let updateStreetAdress = (e: SyntheticEvent) => {
+        setStreetAdress((e.target as HTMLInputElement).value);
+    }
+    let updateCity = (e: SyntheticEvent) => {
+        setCity((e.target as HTMLInputElement).value);
+    }
+    let updateState = (e: SyntheticEvent) => {
+        setState((e.target as HTMLInputElement).value);
+    }
+    let updateZipcode = (e: SyntheticEvent) => {
+        setZipcode((e.target as HTMLInputElement).value);
+    }
 
     function validateEmail(email: string) {
         var re = /\S+@\S+\.\S+/;
@@ -39,8 +55,14 @@ const Register = () => {
         } else if (password !== repeatPassword) {
             setMessage('Password and Repeat Password must match.');
         } else if (password.length < 7) {
-            setMessage('Password must be at least 7 characaters.')
+            setMessage('Password must be at least 7 characaters.');
+        } else if (state.length !== 2) {
+            setMessage('State Postal Abbreviate must be 2 letters IE: NY');
         }
+        else if (zipcode.length !== 6) {
+            setMessage('Zip code is numbers only and must be 6 digits long.')
+        }
+
         else {
             setMessage('Register successful!');
         }
@@ -54,6 +76,10 @@ const Register = () => {
             <input type="email" placeholder='Enter Email' onChange={updateEmail}></input>
             <input type="password" placeholder='Enter Password' onChange={updatePassword}></input>
             <input type="password" placeholder='Enter Repeat Password' onChange={updateRepeatPassword}></input>
+            <input type="text" placeholder='Enter Street Adress' onChange={updateStreetAdress}></input>
+            <input type="text" placeholder='Enter City Name' onChange={updateCity}></input>
+            <input type="text" placeholder='Enter State Abbreviation' onChange={updateState}></input>
+            <input type="text" placeholder='Enter Zip Code' onChange={updateZipcode}></input>
             <button onClick={register}>Register</button>
             {message && <p>{message}</p>}
 

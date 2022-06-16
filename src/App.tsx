@@ -6,10 +6,21 @@ import Register from './components/Register';
 
 function App() {
   return (
-    <>
-      <Login />
-      <Register />
-    </>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        backgroundColor: "magenta"
+      }}
+    >
+
+      <>
+        <Login />
+        <Register />
+      </>
+    </div>
   );
 }
 
