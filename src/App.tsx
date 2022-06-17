@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
-import { Route, Routes} from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import { useState } from 'react';
 import { User } from './models/User';
 
@@ -28,7 +28,7 @@ function App() {
         />
         <Route
           path="/dashboard"
-          //element={<Dashboard currentUser={authUser} />}
+         //element={<Dashboard currentUser={authUser} />}
         />
       </Routes>
     </>
