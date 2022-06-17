@@ -6,7 +6,6 @@ interface IDashboardProps {
 }
 
 function Dashboard(props: IDashboardProps) {
-
      return (
         !props.currentUser ? <Navigate to="/login" /> :
         <>
