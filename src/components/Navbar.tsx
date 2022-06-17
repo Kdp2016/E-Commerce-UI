@@ -6,9 +6,14 @@ import {
     ListItemText,
     Toolbar,
     Typography,
+    IconButton,
+    ToggleButton,
+    Button,
+    Stack
   } from "@mui/material";
-  import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User } from "../models/User";
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
   //import { User } from "../models/user";
   
   interface INavBarProps {
@@ -28,66 +33,46 @@ import { User } from "../models/User";
     }
   
     return (
-      <AppBar color="primary" position="static">
-        <Toolbar>
-          <Typography variant="h5" color="inherit">
-            <List component="nav">
-              <ListItem>
-                <Typography
-                  variant="h5"
-                  color="inherit"
-                  onClick={() => navigate("/")}
-                >
-                  Ecommerce
+<AppBar color="primary" position="static">
+            <Toolbar>
+                <Typography variant="h5" color="inherit">
+                    <List id="nav" component="nav">
+                        <ListItem>
+                            <Typography variant="h5" color="inherit" onClick={() => navigate('/')}>Ecommerce</Typography>
+                            {
+                                props.currentUser
+                                ?
+                                <>
+                                    <ListItemText inset>
+                                        <Typography variant="h6" color="inherit" onClick={() => navigate('/dashboard')}>Dashboard</Typography>
+                                    </ListItemText>
+                                    <ListItemText inset>
+                                        <Typography variant="h6" color="inherit" onClick={logout}>Logout</Typography>
+                                    </ListItemText>
+                                </>
+                                :
+                                <>
+                                    <ListItemText inset>
+                                        <Typography variant="h6" color="inherit" onClick={() => navigate('/login')}>Login</Typography>
+                                    </ListItemText>
+                                    <ListItemText inset>
+                                        <Typography variant="h6" color="inherit">
+                                            <Link to="/register">Register</Link>
+                                        </Typography>
+                                    </ListItemText>
+                                    <ListItemText inset>
+                                        <Typography variant="h6" color="inherit">
+                                            <Link to="/dashboard">Orders</Link>
+                                        </Typography>
+                                    </ListItemText>
+                                    <ShoppingBagIcon id="bagicon"/>
+                                </>
+                            }
+                        </ListItem>
+                    </List>
                 </Typography>
-                {props.currentUser ? (
-                  <>
-                    <ListItemText inset>
-                      <Typography
-                        variant="h6"
-                        color="inherit"
-                        onClick={() => navigate("/dashboard")}
-                      >
-                        Dashboard
-                      </Typography>
-                    </ListItemText>
-                    <ListItemText inset>
-                      <Typography
-                        variant="h6"
-                        color="inherit"
-                        onClick={() => logout()}
-                      >
-                        Logout
-                      </Typography>
-                    </ListItemText>
-                  </>
-                ) : (
-                  <>
-                    <ListItemText inset>
-                      <Typography
-                        variant="h6"
-                        color="inherit"
-                        onClick={() => navigate("/login")}
-                      >
-                        Login
-                      </Typography>
-                    </ListItemText>
-                    <ListItemText inset>
-                      <Typography
-                        variant="h6"
-                        color="inherit"
-                        onClick={() => navigate("/register")}
-                      >
-                        Register
-                      </Typography>
-                    </ListItemText>
-                  </>
-                )}
-              </ListItem>
-            </List>
-          </Typography>
-        </Toolbar>
-      </AppBar>
+            </Toolbar>
+        </AppBar>
     );
   }
   
