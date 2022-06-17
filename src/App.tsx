@@ -32,12 +32,13 @@ function App() {
             //element={<Dashboard currentUser={authUser} />}
           />
           <Route
-            path="/homepage"
+            path="/"
             element={
               <Homepage/>
             }
           />
         </Routes>
+
     </>
   );
 }
