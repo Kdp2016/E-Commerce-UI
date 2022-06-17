@@ -49,6 +49,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
                                     <ListItemText inset>
                                         <Typography variant="h6" color="inherit" onClick={logout}>Logout</Typography>
                                     </ListItemText>
+                                    <ShoppingBagIcon id="bagicon" onClick={() => navigate('/cart')}/>
                                 </>
                                 :
                                 <>
@@ -56,16 +57,11 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
                                         <Typography variant="h6" color="inherit" onClick={() => navigate('/login')}>Login</Typography>
                                     </ListItemText>
                                     <ListItemText inset>
-                                        <Typography variant="h6" color="inherit">
-                                            <Link to="/register">Register</Link>
-                                        </Typography>
+                                        <Typography variant="h6" color="inherit" onClick={() => navigate('/register')}>Register</Typography>
                                     </ListItemText>
                                     <ListItemText inset>
-                                        <Typography variant="h6" color="inherit">
-                                            <Link to="/dashboard">Orders</Link>
-                                        </Typography>
+                                    <ShoppingBagIcon id="bagicon" onClick={() => navigate('/login')}/>
                                     </ListItemText>
-                                    <ShoppingBagIcon id="bagicon"/>
                                 </>
                             }
                         </ListItem>
