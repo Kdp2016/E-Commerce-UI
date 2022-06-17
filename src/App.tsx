@@ -2,6 +2,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
+import Homepage from './components/Homepage';
 import { Route, Routes} from "react-router-dom"
 import { useState } from 'react';
 import { User } from './models/User';
@@ -29,6 +30,12 @@ function App() {
           <Route
             path="/dashboard"
             //element={<Dashboard currentUser={authUser} />}
+          />
+          <Route
+            path="/homepage"
+            element={
+              <Homepage/>
+            }
           />
         </Routes>
     </>
