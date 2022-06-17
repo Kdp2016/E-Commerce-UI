@@ -6,6 +6,7 @@ import Homepage from './components/Homepage';
 import { Route, Routes} from "react-router-dom"
 import { useState } from 'react';
 import { User } from './models/User';
+import Dashboard from './components/Dashboard';
 
 function App() {
   const [authUser, setAuthUser] = useState<User>();
