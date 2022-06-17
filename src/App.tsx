@@ -28,7 +28,7 @@ function App() {
         />
         <Route
           path="/dashboard"
-        //element={<Dashboard currentUser={authUser} />}
+         //element={<Dashboard currentUser={authUser} />}
         />
       </Routes>
     </>
