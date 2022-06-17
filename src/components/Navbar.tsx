@@ -35,7 +35,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
     return (
 <AppBar color="primary" position="static">
             <Toolbar>
-                <Typography variagitnt="h5" color="inherit">
+                <Typography variant="h5" color="inherit">
                     <List id="nav" component="nav">
                         <ListItem>
                             <Typography variant="h5" color="inherit" onClick={() => navigate('/')}>Ecommerce</Typography>
