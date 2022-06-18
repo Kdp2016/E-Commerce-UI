@@ -1,0 +1,43 @@
+.product {
+  padding: 10px;
+  box-shadow: none;
+}
+
+.product:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2) !important;
+  transition-duration: 0.2s;
+}
+
+.product h4 {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 400;
+  margin-bottom: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.product h3 {
+}
+
+.addToCart {
+  background: rgb(224, 4, 4) !important;
+  width: 100%;
+  font-weight: 600 !important;
+}
+
+/* .storeHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header-video {
+  width: 100% !important;
+  height: 500px;
+}
+
+.storeHeader img {
+  height: 100%;
+  width: 20%;
+} */
