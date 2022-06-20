@@ -7,6 +7,7 @@ import { Route, Routes} from "react-router-dom"
 import { useState } from 'react';
 import { User } from './models/User';
 import Dashboard from './components/Dashboard';
+import Cart from './components/Cart';
 
 function App() {
   const [authUser, setAuthUser] = useState<User>();
@@ -26,6 +27,12 @@ function App() {
             path="/register"
             element={
               <Register/>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Cart/>
             }
           />
           <Route
