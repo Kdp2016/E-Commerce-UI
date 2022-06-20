@@ -3,15 +3,14 @@ import { Avatar, Checkbox, Grid, List, ListItem, ListItemAvatar, ListItemButton,
 import { border, borderRadius, borders, Container, grid, height } from '@mui/system';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import React, { useState } from 'react'
-import { ProductModel } from '../models/Product';
-import products from '../models/products';
+import { Product } from '../models/Product';
 import GroupedButtons from './PlusMinusButton';
 
 
 
 type Props = {
-  cartItems: ProductModel[];
-  addToCart: (clickedItem: ProductModel) => void;
+  cartItems: Product[];
+  addToCart: (clickedItem: Product) => void;
   removeFromCart: (id: number) => void;
 };
 
@@ -19,10 +18,10 @@ const Cart = ({}: Props) => {
 
 
 
-  const getTotalItems = (items: ProductModel[]) =>
+  const getTotalItems = (items: Product[]) =>
   items.reduce((acc, item) => acc + item.amount, 0);
   
-  const calculateTotal = (items: ProductModel[]) =>
+  const calculateTotal = (items: Product[]) =>
     items.reduce((acc, item) => acc + item.amount * item.price, 0);
 
 // function Cart() {
@@ -35,7 +34,7 @@ const Cart = ({}: Props) => {
         <Typography variant="subtitle1">Cart</Typography>
         <div style={{height: 40, width: '100%'}}>
     <List dense sx={{ width: '100%', maxWidth: 760, bgcolor: 'background.blue' }}>
-    {products.map((product)  => {
+    {products.map((product:Product)  => {
       return (
         <Container>
         <ListItem style={{display: 'inline'}}
@@ -45,13 +44,13 @@ const Cart = ({}: Props) => {
             <ListItemAvatar >
               <Avatar style={{display:'block', width:'88px', height:'88px', border:'none', borderRadius: '8px'}}
 
-                src={product.image}
+                src={product.productImage}
               />
             
             </ListItemAvatar>
             </Grid> 
               <Grid item xs marginLeft={5}>
-                <ListItemText primary={product.title} />
+                <ListItemText primary={product.productName} />
               </Grid> 
               <Grid item xs marginLeft={20}>
                 <GroupedButtons />
