@@ -21,7 +21,7 @@ function Homepage() {
   
 
   const handleAddToCart = (clickedItem: Product) => {
-    setCartItems((prev) => {
+      setCartItems((prev) => {
       const isItemInCart = prev.find((product) => product.id === clickedItem.id);
 
       if (isItemInCart) {
@@ -37,6 +37,11 @@ function Homepage() {
     });
     
   };
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  console.log(cartItems)
 
   const randomElement: Product =
     products[Math.floor(Math.random() * products.length)];

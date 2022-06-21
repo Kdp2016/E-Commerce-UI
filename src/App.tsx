@@ -4,13 +4,17 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Homepage from './components/Homepage';
 import { Route, Routes} from "react-router-dom"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { User } from './models/User';
 import Dashboard from './components/Dashboard';
 import Cart from './components/Cart';
+import { Product } from './models/Product';
 
 function App() {
   const [authUser, setAuthUser] = useState<User>();
+
+
+
 
   return (
     <>
@@ -32,7 +36,7 @@ function App() {
           <Route
             path="/cart"
             element={
-              <Cart/>
+              <Cart />
             }
           />
           <Route
