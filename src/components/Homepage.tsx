@@ -4,7 +4,7 @@ import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Product } from "../models/Product";
 import "../css/homepage.css";
-import ProductCard from "./Product";
+import ProductCard from "./ProductCard";
 // import products from "../models/products";
 
 function Homepage() {
@@ -18,11 +18,11 @@ function Homepage() {
       });
   }, []);
 
-  
-
   const handleAddToCart = (clickedItem: Product) => {
-      setCartItems((prev) => {
-      const isItemInCart = prev.find((product) => product.id === clickedItem.id);
+    setCartItems((prev) => {
+      const isItemInCart = prev.find(
+        (product) => product.id === clickedItem.id
+      );
 
       if (isItemInCart) {
         return prev.map((product) =>
@@ -33,15 +33,13 @@ function Homepage() {
       }
 
       return [...prev, { ...clickedItem, amount: 1 }];
-    
     });
-    
   };
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  console.log(cartItems)
+  console.log(cartItems);
 
   const randomElement: Product =
     products[Math.floor(Math.random() * products.length)];
@@ -60,7 +58,7 @@ function Homepage() {
         <h3>Latest Products</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
           {products.map((product: Product) => (
-            <ProductCard product={product} handleAddToCart={handleAddToCart}/>
+            <ProductCard product={product} handleAddToCart={handleAddToCart} />
           ))}
         </Grid>
       </Container>
