@@ -22,6 +22,7 @@ import {
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { Product } from "../models/Product";
+
 import ProductCard from "./ProductCard";
 
 const cartFromLocalStorage = JSON.parse(
@@ -39,12 +40,14 @@ const Cart = ({}) => {
   }, []);
 
   const getTotalItems = (items: Product[]) => {
-    setTotalItems(items.reduce((acc, item) => acc + item.amount, 0));
+    setTotalItems(items.reduce((acc, item) => acc + item.quantity, 0));
   };
 
   const calculateTotal = (items: Product[]) => {
     setCartTotal(
-      items.reduce((acc, item) => acc + item.amount * item.price, 0).toFixed(2)
+      items
+        .reduce((acc, item) => acc + item.quantity * item.price, 0)
+        .toFixed(2)
     );
   };
 
@@ -52,7 +55,7 @@ const Cart = ({}) => {
     let itemIndex = cartItems.indexOf(item);
     const newState = [...cartItems];
 
-    newState[itemIndex].amount = item.amount + 1;
+    newState[itemIndex].quantity = item.quantity + 1;
     setCartItems(newState);
     calculateTotal(cartItems);
   };
@@ -61,10 +64,10 @@ const Cart = ({}) => {
     let itemIndex = cartItems.indexOf(item);
     const newState = [...cartItems];
 
-    if (newState[itemIndex].amount == 1) {
+    if (newState[itemIndex].quantity == 1) {
       newState.splice(itemIndex, 1);
     } else {
-      newState[itemIndex].amount = item.amount - 1;
+      newState[itemIndex].quantity = item.quantity - 1;
     }
 
     setCartItems(newState);
@@ -118,15 +121,22 @@ const Cart = ({}) => {
 
                       <Grid item xs marginLeft={20}>
                         <ButtonGroup
+                          className="buttongroup"
                           variant="contained"
                           size="small"
                           aria-label="small contained button group"
                         >
-                          <p>{product.amount}</p>
-                          <Button onClick={() => plusItemAmount(product)}>
+                          <Button
+                            onClick={() => plusItemAmount(product)}
+                            className="cartButton"
+                          >
                             +
                           </Button>
-                          <Button onClick={() => minusItemAmount(product)}>
+                          <p>{product.quantity}</p>
+                          <Button
+                            className="cartButton"
+                            onClick={() => minusItemAmount(product)}
+                          >
                             -
                           </Button>
                         </ButtonGroup>
@@ -134,7 +144,7 @@ const Cart = ({}) => {
 
                       <Grid item xs>
                         <div>
-                          <p>Cost: ${product.price}</p>
+                          <p>Unit Price: ${product.price}</p>
                         </div>
                       </Grid>
                     </ListItemButton>

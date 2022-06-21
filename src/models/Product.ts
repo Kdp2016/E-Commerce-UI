@@ -1,3 +1,6 @@
+import { Category } from "./Category";
+import { User } from "./User";
+
 export type Product = {
   id: number;
   productName: string;
@@ -5,7 +8,7 @@ export type Product = {
   productImage: string;
   brand: string;
   price: number;
-  sellerId: number;
-  categoryId: number;
-  amount: number;
+  seller: User;
+  category: Category;
+  quantity: number;
 };

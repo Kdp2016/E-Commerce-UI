@@ -15,9 +15,10 @@ function Homepage() {
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
+        console.log(products);
       });
   }, []);
-
+  console.log(products);
   const handleAddToCart = (clickedItem: Product) => {
     setCartItems((prev) => {
       const isItemInCart = prev.find(
@@ -27,19 +28,17 @@ function Homepage() {
       if (isItemInCart) {
         return prev.map((product) =>
           product.id === clickedItem.id
-            ? { ...product, amount: product.amount + 1 }
+            ? { ...product, quantity: product.quantity + 1 }
             : product
         );
       }
 
-      return [...prev, { ...clickedItem, amount: 1 }];
+      return [...prev, { ...clickedItem, quantity: 1 }];
     });
   };
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
-
-  console.log(cartItems);
 
   const randomElement: Product =
     products[Math.floor(Math.random() * products.length)];
