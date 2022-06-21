@@ -7,4 +7,5 @@ export type Product = {
   price: number;
   sellerId: number;
   categoryId: number;
+  amount: number;
 };
