@@ -30,14 +30,14 @@ const cartFromLocalStorage = JSON.parse(
 );
 
 const Cart = ({}) => {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useState<Product[]>(cartFromLocalStorage);
   const [cartTotal, setCartTotal] = useState("");
   const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
-    setCartItems(cartFromLocalStorage);
-    calculateTotal(cartFromLocalStorage);
-  }, []);
+    calculateTotal(cartItems);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const getTotalItems = (items: Product[]) => {
     setTotalItems(items.reduce((acc, item) => acc + item.quantity, 0));
