@@ -28,7 +28,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route
           path="/dashboard"
-          //element={<Dashboard currentUser={authUser} />}
+          element={<Dashboard currentUser={authUser} />}
         />
         <Route path="/" element={<Homepage />} />
       </Routes>

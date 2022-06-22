@@ -68,7 +68,7 @@ function Homepage() {
         <h3>Latest Products</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
           {products.map((product: Product) => (
-            <ProductCard product={product} handleAddToCart={handleAddToCart} />
+            <ProductCard product={product} key={product.id} handleAddToCart={handleAddToCart} />
           ))}
         </Grid>
       </Container>
