@@ -9,13 +9,16 @@ import ProductCard from "./ProductCard";
 
 function Homepage() {
   const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useState<Product[]>(() => {
+    const saved = localStorage.getItem("cartItems");
+    const initialValue = JSON.parse(saved || "[]");
+    return initialValue || "";
+  });
   useEffect(() => {
     fetch("http://localhost:8080/products")
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
-        console.log(products);
       });
   }, []);
   console.log(products);
@@ -36,6 +39,14 @@ function Homepage() {
       return [...prev, { ...clickedItem, quantity: 1 }];
     });
   };
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    console.log(cartItems);
+    if (cartItems) {
+      setCartItems(cartItems);
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);

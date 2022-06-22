@@ -13,7 +13,7 @@ const ProductCard = ({ product, handleAddToCart }: Props) => {
         <CardMedia component="img" image={product.productImage} />
         <div>
           <h4>{product.productName}</h4>
-          <h6>{product.category.category_name}</h6>
+          <h6>{product.category}</h6>
         </div>
         <h3>${product.price} USD</h3>
         <Button

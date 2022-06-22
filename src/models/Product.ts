@@ -1,4 +1,3 @@
-import { Category } from "./Category";
 import { User } from "./User";
 
 export type Product = {
@@ -9,6 +8,6 @@ export type Product = {
   brand: string;
   price: number;
   seller: User;
-  category: Category;
+  category: string;
   quantity: number;
 };
