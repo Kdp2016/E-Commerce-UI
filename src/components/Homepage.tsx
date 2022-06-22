@@ -12,7 +12,7 @@ function Homepage() {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
     const saved = localStorage.getItem("cartItems");
     const initialValue = JSON.parse(saved || "[]");
-    return initialValue || "";
+    return initialValue || "[]";
   });
   useEffect(() => {
     fetch("http://localhost:8080/products")
