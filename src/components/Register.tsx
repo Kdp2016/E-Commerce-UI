@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import '../css/register.css';
+import '../css/auth.css';
 import { useState } from 'react';
 const Register = () => {
 
