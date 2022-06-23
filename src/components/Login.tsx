@@ -31,17 +31,20 @@ function Login(props: ILoginProps) {
   };
   return (
     <>
-      <h1>loginpage</h1>
-      <input type="email" onChange={updateEmail} placeholder="email"></input>
-      <input
-        type="password"
-        onChange={updatePassword}
-        placeholder="password"
-      ></input>
-      <button onClick={login} id="login-button">
-        login
-      </button>
-      {message && <p>{message}</p>}
+      <div className="form">
+        {" "}
+        <h1>Login Page</h1>
+        <input type="email" onChange={updateEmail} placeholder="email"></input>
+        <input
+          type="password"
+          onChange={updatePassword}
+          placeholder="password"
+        ></input>
+        <button onClick={login} id="login-button">
+          Login{" "}
+        </button>
+        {message && <p>{message}</p>}
+      </div>
     </>
   );
 }

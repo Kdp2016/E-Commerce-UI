@@ -16,7 +16,8 @@
   font-family: "Roboto", sans-serif;
 }
 
-.product h3 {
+.product h6 {
+  margin-top: 5px;
 }
 
 .addToCart {
@@ -25,19 +26,18 @@
   font-weight: 600 !important;
 }
 
-/* .storeHeader {
-  width: 100%;
+.buttongroup {
+  width: 80%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
-.header-video {
-  width: 100% !important;
-  height: 500px;
+.buttongroup p {
+  margin: 0;
 }
 
-.storeHeader img {
-  height: 100%;
-  width: 20%;
-} */
+.cartButton {
+  background-color: #e00404 !important;
+  border-right: none !important;
+}

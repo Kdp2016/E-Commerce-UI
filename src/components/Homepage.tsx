@@ -4,10 +4,16 @@ import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Product } from "../models/Product";
 import "../css/homepage.css";
+import ProductCard from "./ProductCard";
 // import products from "../models/products";
 
 function Homepage() {
   const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState<Product[]>(() => {
+    const saved = localStorage.getItem("cartItems");
+    const initialValue = JSON.parse(saved || "[]");
+    return initialValue || "[]";
+  });
   useEffect(() => {
     fetch("http://localhost:8080/products")
       .then((resp) => resp.json())
@@ -15,6 +21,35 @@ function Homepage() {
         setProducts(data);
       });
   }, []);
+  console.log(products);
+  const handleAddToCart = (clickedItem: Product) => {
+    setCartItems((prev) => {
+      const isItemInCart = prev.find(
+        (product) => product.id === clickedItem.id
+      );
+
+      if (isItemInCart) {
+        return prev.map((product) =>
+          product.id === clickedItem.id
+            ? { ...product, quantity: product.quantity + 1 }
+            : product
+        );
+      }
+
+      return [...prev, { ...clickedItem, quantity: 1 }];
+    });
+  };
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    console.log(cartItems);
+    if (cartItems) {
+      setCartItems(cartItems);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const randomElement: Product =
     products[Math.floor(Math.random() * products.length)];
@@ -33,22 +68,7 @@ function Homepage() {
         <h3>Latest Products</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
           {products.map((product: Product) => (
-            <Grid item key={product.id} xs={4} md={4} lg={2.8}>
-              <Card className="product">
-                <CardMedia component="img" image={product.productImage} />
-                <h4>{product.productName}</h4>
-                <h3>${product.price} USD</h3>
-                <Button
-                  className="addToCart"
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  onMouseDown={(event) => event.stopPropagation()}
-                >
-                  Add To Cart
-                </Button>
-              </Card>
-            </Grid>
+            <ProductCard product={product} key={product.id} handleAddToCart={handleAddToCart} />
           ))}
         </Grid>
       </Container>
