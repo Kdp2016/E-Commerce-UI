@@ -12,6 +12,7 @@ const Register = () => {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [zipcode, setZipcode] = useState("");
+    const [accountType, setAccountType] = useState(false);
 
     const [message, setMessage] = useState("");
 
@@ -42,6 +43,11 @@ const Register = () => {
     let updateZipcode = (e: SyntheticEvent) => {
         setZipcode((e.target as HTMLInputElement).value);
         let Zipcodenumber = parseInt(zipcode);
+    }
+    let updateAccountType = (e: SyntheticEvent) => {
+        setAccountType((e.target as HTMLInputElement).checked);
+        // // @ts-ignore
+        // setAccountType(e.target.checked);
     }
 
     function validateEmail(email: string) {
@@ -76,15 +82,18 @@ const Register = () => {
     return (
         <>
             <div className="registration"> <h1>Register Page</h1>
+                <div><label>Check here for seller account.</label>
+                    <input type='checkbox' onChange={updateAccountType}></input></div>
+
                 <input type="text" placeholder='Enter First Name' onChange={updateFirstName}></input>
                 <input type="text" placeholder='Enter Last Name' onChange={updateLastName}></input>
                 <input type="email" placeholder='Enter Email' onChange={updateEmail}></input>
                 <input type="password" placeholder='Enter Password' onChange={updatePassword}></input>
                 <input type="password" placeholder='Enter Repeat Password' onChange={updateRepeatPassword}></input>
-                <input type="text" placeholder='Enter Street Adress' onChange={updateStreetAdress}></input>
-                <input type="text" placeholder='Enter City Name' onChange={updateCity}></input>
-                <input type="text" placeholder='Enter State Abbreviation' onChange={updateState}></input>
-                <input type="text" placeholder='Enter Zip Code' onChange={updateZipcode}></input>
+                {accountType ? (<></>) : (<><input type="text" placeholder='Enter Street Adress' onChange={updateStreetAdress}></input>
+                    <input type="text" placeholder='Enter City Name' onChange={updateCity}></input>
+                    <input type="text" placeholder='Enter State Abbreviation' onChange={updateState}></input>
+                    <input type="text" placeholder='Enter Zip Code' onChange={updateZipcode}></input></>)}
                 {message && <p>{message}</p>}
                 <button onClick={register}>Register</button>
             </div>
