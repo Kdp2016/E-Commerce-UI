@@ -15,7 +15,7 @@ function Homepage() {
     return initialValue || "[]";
   });
   useEffect(() => {
-    fetch("http://localhost:8080/products")
+    fetch("http://localhost:5000/ecommerce/products")
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
@@ -68,7 +68,11 @@ function Homepage() {
         <h3>Latest Products</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
           {products.map((product: Product) => (
-            <ProductCard product={product} key={product.id} handleAddToCart={handleAddToCart} />
+            <ProductCard
+              product={product}
+              key={product.id}
+              handleAddToCart={handleAddToCart}
+            />
           ))}
         </Grid>
       </Container>

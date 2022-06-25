@@ -5,32 +5,33 @@ import { User } from "../models/User";
 import UserCard from "./UserCard";
 
 interface IDashboardProps {
-    currentUser: User | undefined
+  currentUser: User | undefined;
 }
 
 function Dashboard(props: IDashboardProps) {
-    const [users, setUsers] = useState([]);
-    useEffect(() => {
-        fetch("http://localhost:8080/users")
-            .then((resp) => resp.json())
-            .then((data) => {
-                setUsers(data);
-            });
-    }, []);
-    return (
-        props.currentUser ? <Navigate to="/login" /> :
-            <>
-                <Container>
-                    <h1>Admin Dashboard</h1>
-                    <h3>Users</h3>
-                    <Grid container spacing={3} alignItems="center" justifyContent="center">
-                        {users.map((user: User) => (
-                            <UserCard user={user} key={user.id} />
-                        ))}
-                    </Grid>
-                </Container>
-            </>
-    );
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/ecommerce/users")
+      .then((resp) => resp.json())
+      .then((data) => {
+        setUsers(data);
+      });
+  }, []);
+  return props.currentUser ? (
+    <Navigate to="/login" />
+  ) : (
+    <>
+      <Container>
+        <h1>Admin Dashboard</h1>
+        <h3>Users</h3>
+        <Grid container spacing={3} alignItems="center" justifyContent="center">
+          {users.map((user: User) => (
+            <UserCard user={user} key={user.id} />
+          ))}
+        </Grid>
+      </Container>
+    </>
+  );
 }
 
 export default Dashboard;
