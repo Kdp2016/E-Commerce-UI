@@ -1,27 +1,181 @@
+html {
+  font-family: Bogle, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
 .Container {
-    display: flex;
-    justify-content: space-between;
-    height: 100vh;
-    padding: 40px;
+  margin: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
 }
 
 .Cart {
-    width: 60%;
+  margin-right: 16px;
+  width: 66%;
+}
+.cartTitle {
+  padding-left: 20px;
+}
+
+.cartTitle span {
+  font-weight: normal;
+}
+
+.cartItem {
+  width: 100%;
+  height: 160px;
+  border-bottom: 1px solid #00000026;
+  margin-top: 10px;
+}
+.cartList {
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 1px #00000026;
+  padding: 15px !important;
+}
+.itemInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+}
+
+.itemDesc {
+  width: 100%;
+  display: flex;
+}
+.itemInfo img {
+  height: 100%;
+  box-shadow: 0 1px 2px 1px #00000026;
+}
+
+.itemDesc span {
+  padding-left: 10px;
+  max-width: 50%;
+  margin: 0px;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.itemDesc p {
+  color: #3e3e3e;
+  padding-left: 10px;
+  font-size: 12px;
+  margin: 0px;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.itemPrice {
+  display: flex;
+  width: 15%;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.itemPrice h3 {
+  margin: 0px;
+  padding-bottom: 5px;
+}
+.itemfunctions {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+
+.itemfunctions div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 34px;
+  width: 120px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #babbbe;
+  border-radius: 9999px;
+}
+
+.itemfunctions button {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.itemfunctions div p {
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: bolder;
 }
 
 .Checkout {
-    width: 40%;
+  box-shadow: 0 1px 2px 1px #00000026;
+  margin-left: 16px;
+  width: 31%;
+  padding: 10px;
+  right: 10px;
+  border-radius: 0.5rem;
 }
 
-.cartform {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+.checkoutForm {
+  border-bottom: 1px solid #00000026;
 }
 
-.cartform input {
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
+.Checkout button {
+  width: 100%;
+  background-color: rgb(224, 4, 4);
+  border-radius: 9999px;
+  border: none;
+  color: white;
+  padding: 15px;
+  transition: 0.4s;
+  font-size: 20px;
+}
+
+.Checkout button:hover {
+  background-color: rgb(185, 7, 7);
+  cursor: pointer;
+}
+
+.Checkout h2 {
+  margin: 0;
+  padding: 5px 0px;
+}
+.MuiTextField-root {
+  width: 95% !important;
+}
+
+.Checkout p {
+  margin: 0;
+  padding-bottom: 7px;
+}
+
+.formFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formFlex span {
+  font-weight: normal;
+}
+
+.formFlex h6 {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.total {
+  margin-top: 20px;
+  border-bottom: 1px solid #00000026;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 80px;
+}
+
+.bottom {
+  height: 50px;
+  border: none;
 }
