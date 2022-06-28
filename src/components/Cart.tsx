@@ -25,13 +25,13 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Product } from "../models/Product";
 import "../css/cart.css";
-import ProductCard from "./ProductCard";
+import ProductCard from "./Cards/ProductCard";
 
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
 
-const Cart = ({}) => {
+const Cart = ({ }) => {
   const [cartItems, setCartItems] = useState<Product[]>(cartFromLocalStorage);
   const [cartTotal, setCartTotal] = useState("");
   const [totalItems, setTotalItems] = useState(0);

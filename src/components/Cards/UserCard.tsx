@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Card, CardMedia, Grid } from "@mui/material";
-import { User } from "../models/User";
+import { User } from "../../models/User";
 
 type Props = {
   user: User;

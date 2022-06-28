@@ -1,5 +1,5 @@
 import { Button, Card, CardMedia, Grid } from "@mui/material";
-import { Product } from "../models/Product";
+import { Product } from "../../models/Product";
 
 type Props = {
   product: Product;
