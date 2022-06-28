@@ -4,7 +4,7 @@ import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Product } from "../models/Product";
 import "../css/homepage.css";
-import ProductCard from "./ProductCard";
+import ProductCard from "./Cards/ProductCard";
 // import products from "../models/products";
 
 function Homepage() {
