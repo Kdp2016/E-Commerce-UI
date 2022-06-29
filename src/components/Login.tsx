@@ -1,5 +1,6 @@
 import { SyntheticEvent } from "react";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { User } from "../models/User";
 
 interface ILoginProps {
@@ -35,11 +36,11 @@ function Login(props: ILoginProps) {
     if (resp.status !== 200) {
         setMessage('No user record found using the provided credentials!');
     } else {
-      setMessage("Login success!");
       props.setCurrentUser(await resp.json());
     }
   };}
   return (
+    props.currentUser ? <Navigate to="/"/> :
     <>
       <div className="form">
         {" "}
