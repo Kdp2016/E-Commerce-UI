@@ -31,7 +31,7 @@ const Register = () => {
         return re.test(email);
 
     }
-    const register = (event: SyntheticEvent) => {
+    const register = async (event: SyntheticEvent) => {
         if (!firstName || !lastName || !email || !password || !repeatPassword) {
             setMessage('Missing information, Please fill all Boxes.');
         } else if (!validateEmail(email)) {
@@ -43,7 +43,19 @@ const Register = () => {
         }
 
         else {
-            setMessage('Register successful!');
+            let resp = await fetch('http://localhost:5000/ecommerce/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ firstName, lastName, email, password })
+            });
+
+            if (resp.status !== 201) {
+                setMessage('The email address provided already exist!');
+            } else {
+                setMessage('Register successful!');
+            }
         }
     }
 
