@@ -40,8 +40,8 @@ const Register = () => {
             setMessage('Please enter a valid email.');
         } else if (password !== repeatPassword) {
             setMessage('Password and Repeat Password must match.');
-        } else if (password.length < 7) {
-            setMessage('Password must be at least 7 characaters.');
+        } else if (password.length < 8) {
+            setMessage('Password must be at least 8 characaters.');
         }
 
         else {
