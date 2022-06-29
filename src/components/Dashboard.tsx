@@ -75,7 +75,7 @@ function Dashboard(props: IDashboardProps) {
     setCategory((e.target as HTMLInputElement).value);
   };
 
-  return props.currentUser ? (
+  return !props.currentUser ? (
     <Navigate to="/login" />
   ) : (
     <>
