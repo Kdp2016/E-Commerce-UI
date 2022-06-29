@@ -20,15 +20,25 @@ function Login(props: ILoginProps) {
     setPassword((e.target as HTMLInputElement).value);
   };
 
-  let login = (e: SyntheticEvent) => {
+  let login = async (e: SyntheticEvent) => {
     if (!email || !password) {
       setMessage("You must provide an Email and Password.");
     } else {
+      let resp = await fetch('http://localhost:5000/ecommerce/auth', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    if (resp.status !== 200) {
+        setMessage('No user record found using the provided credentials!');
+    } else {
       setMessage("Login success!");
-      console.log("email: " + email);
-      console.log("password: " + password);
+      props.setCurrentUser(await resp.json());
     }
-  };
+  };}
   return (
     <>
       <div className="form">
@@ -40,10 +50,10 @@ function Login(props: ILoginProps) {
           onChange={updatePassword}
           placeholder="password"
         ></input>
+        {message && <p>{message}</p>}
         <button onClick={login} id="login-button">
           Login{" "}
         </button>
-        {message && <p>{message}</p>}
       </div>
     </>
   );
