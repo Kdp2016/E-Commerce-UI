@@ -13,7 +13,6 @@ const UserCard = ({ user }: Props) => {
           <h4>{user.id}</h4>
           <h3>{user.firstName}</h3>
           <h3>{user.lastName}</h3>
-          <h3>{user.address}</h3>
           <h3>{user.email}</h3>
           <h3>{user.role}</h3>
         </div>

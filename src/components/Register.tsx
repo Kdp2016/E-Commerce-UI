@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import '../css/auth.css';
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 const Register = () => {
 
     const [firstName, setFirstName] = useState("");
@@ -9,6 +10,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     let updateFirstName = (e: SyntheticEvent) => {
         setFirstName((e.target as HTMLInputElement).value);
@@ -54,7 +56,10 @@ const Register = () => {
             if (resp.status !== 201) {
                 setMessage('The email address provided already exist!');
             } else {
-                setMessage('Register successful!');
+                setMessage('Redirecting to login.....')
+                setTimeout(() => navigate('/login'), 2000);
+
+                
             }
         }
     }
@@ -75,3 +80,7 @@ const Register = () => {
 }
 
 export default Register;
+function useHistory() {
+    throw new Error('Function not implemented.');
+}
+

@@ -27,12 +27,11 @@ import { Product } from "../models/Product";
 import "../css/cart.css";
 import ProductCard from "./Cards/ProductCard";
 
-const cartFromLocalStorage = JSON.parse(
-  localStorage.getItem("cartItems") || "[]"
-);
-
-const Cart = ({ }) => {
-  const [cartItems, setCartItems] = useState<Product[]>(cartFromLocalStorage);
+const Cart = ({}) => {
+  const [cartItems, setCartItems] = useState<Product[]>(() => {
+    const saved = localStorage.getItem("cartItems");
+    const initialValue = JSON.parse(saved || "[]");
+    return initialValue || "[]"; });
   const [cartTotal, setCartTotal] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [streetAdress, setStreetAdress] = useState("");

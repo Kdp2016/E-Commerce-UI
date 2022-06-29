@@ -21,7 +21,6 @@ function Homepage() {
         setProducts(data);
       });
   }, []);
-  console.log(products);
   const handleAddToCart = (clickedItem: Product) => {
     setCartItems((prev) => {
       const isItemInCart = prev.find(
@@ -39,6 +38,8 @@ function Homepage() {
       return [...prev, { ...clickedItem, quantity: 1 }];
     });
   };
+  console.log(cartItems);
+  
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
     console.log(cartItems);
