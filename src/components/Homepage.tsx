@@ -15,7 +15,7 @@ function Homepage() {
     return initialValue || "[]";
   });
   useEffect(() => {
-    fetch("http://localhost:5000/ecommerce/products")
+    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products")
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
