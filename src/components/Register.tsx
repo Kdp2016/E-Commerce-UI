@@ -45,7 +45,7 @@ const Register = () => {
         }
 
         else {
-            let resp = await fetch('http://localhost:5000/ecommerce/users', {
+            let resp = await fetch('http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

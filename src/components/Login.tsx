@@ -25,7 +25,7 @@ function Login(props: ILoginProps) {
     if (!email || !password) {
       setMessage("You must provide an Email and Password.");
     } else {
-      let resp = await fetch('http://localhost:5000/ecommerce/auth', {
+      let resp = await fetch('http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/auth', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

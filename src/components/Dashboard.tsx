@@ -27,7 +27,7 @@ function Dashboard(props: IDashboardProps) {
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/ecommerce/products")
+    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products")
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
@@ -35,7 +35,7 @@ function Dashboard(props: IDashboardProps) {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/ecommerce/orders")
+    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders")
       .then((resp) => resp.json())
       .then((data) => {
         setOrders(data);
@@ -43,7 +43,7 @@ function Dashboard(props: IDashboardProps) {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/ecommerce/users")
+    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/users")
       .then((resp) => resp.json())
       .then((data) => {
         setUsers(data);
@@ -79,6 +79,7 @@ function Dashboard(props: IDashboardProps) {
     <Navigate to="/login" />
   ) : (
     <>
+      <p>Welcome, {props.currentUser.firstName}</p>
       <Container>
         <h1>Admin Dashboard</h1>
         <h3>Users</h3>
