@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
 import { User } from "../models/User";
@@ -8,9 +8,16 @@ import OrderCard from "./Cards/OrderCard";
 import SellerProductCard from "./Cards/SellerProductCard";
 import SellerOrderCard from "./Cards/SellerOrderCard";
 import UserCard from "./Cards/UserCard";
+import { ClassNames } from "@emotion/react";
+import { Co2Sharp } from "@mui/icons-material";
 
 interface IDashboardProps {
   currentUser: User | undefined;
+}
+
+function useForceUpdate(){
+  const [value, setValue] = useState(0);
+  return () => setValue(value => value + 1);
 }
 
 function Dashboard(props: IDashboardProps) {
@@ -19,11 +26,18 @@ function Dashboard(props: IDashboardProps) {
   const [products, setProducts] = useState([]);
   const [message, setMessage] = useState("");
   const [productName, setProductName] = useState("");
-  const [productDesc, setProductDesc] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [selectedImage, setSelectedImage] = useState<File>();
   const [productImage, setProductImage] = useState("");
   const [brand, setBrand] = useState("");
-  const [price, setPrice] = useState("0");
+  const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
+  const [seller, setSeller] = useState(props.currentUser);
+  const navigate = useNavigate();
+  const forceUpdate = useForceUpdate();
+
+
+
 
 
   useEffect(() => {
@@ -31,6 +45,12 @@ function Dashboard(props: IDashboardProps) {
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
+        console.log(productName);
+        console.log(productDescription);
+        console.log(productImage);
+        console.log(brand);
+        console.log(price);
+        console.log(category);
       });
   }, []);
 
@@ -55,7 +75,7 @@ function Dashboard(props: IDashboardProps) {
   };
 
   let updateProductDesc = (e: SyntheticEvent) => {
-    setProductDesc((e.target as HTMLInputElement).value);
+    setProductDescription((e.target as HTMLInputElement).value);
   };
 
   let updateBrand = (e: SyntheticEvent) => {
@@ -63,11 +83,12 @@ function Dashboard(props: IDashboardProps) {
   };
 
   let updateProductImage = (e: SyntheticEvent) => {
-    setProductImage((e.target as HTMLInputElement).value);
+    // setProductImage((e.target as HTMLInputElement).value);
   };
 
   let updatePrice = (e: SyntheticEvent) => {
-    setPrice((e.target as HTMLInputElement).value);
+    let price = ((e.target as HTMLInputElement).value);
+    setPrice(Number(price));
   };
 
 
@@ -75,11 +96,59 @@ function Dashboard(props: IDashboardProps) {
     setCategory((e.target as HTMLInputElement).value);
   };
 
+  const uploadImage = (e: SyntheticEvent) => {
+    e.preventDefault();
+    console.log(selectedImage);
+    const formData = new FormData();
+    formData.append("file", selectedImage!);
+    formData.append("upload_preset", "ecommerce-project");
+    fetch("https://api.cloudinary.com/v1_1/drrkccbb4/image/upload", {
+      method: "POST",
+      body: formData,
+    }).then((resp) => {
+      return resp.json();
+    }).then((data) => {
+      setProductImage(data.secure_url);
+    })}
+
+  const addProduct = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    uploadImage(e);
+
+    if(isNaN(price)){
+      setMessage("Price must be a number");
+    }
+    else if (!productName || !productDescription || !productImage || !brand || !price || !category) {
+      setMessage("Please fill in all fields");
+    }else if(price < 0){
+      setMessage("Price must be a number.")
+    } else if(price < 0){
+      setMessage("Price must be greater than 0.")
+    }
+      else {
+       
+      let resp = await fetch('http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ productName, productDescription, productImage, brand, price, category, seller })
+
+  });
+  setMessage('Creating product.....')
+  setTimeout(() => setMessage("Product Created!"), 2000);
+  forceUpdate();
+
+  }
+}
+
+
+
   return !props.currentUser ? (
     <Navigate to="/login" />
   ) : (
     <>
-      <p>Welcome, {props.currentUser.firstName}</p>
+      <p>Welcome, </p>
       <Container>
         <h1>Admin Dashboard</h1>
         <h3>Users</h3>
@@ -144,7 +213,9 @@ function Dashboard(props: IDashboardProps) {
             onChange={updatePrice}
           />
           <label htmlFor="image">Image URL</label>
-          <input id="image" onChange={updateProductImage} type="file"></input>
+          <input id="image" onChange={(event) => {
+            // @ts-ignore: Object is possibly 'null'.
+            setSelectedImage((event.target as HTMLInputElement).files[0]!)}} type="file"></input>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
             <Select
@@ -152,14 +223,32 @@ function Dashboard(props: IDashboardProps) {
               id="demo-simple-select-helper"
               value={category}
               label="Category"
-            >
-              <MenuItem >Cat1</MenuItem>
-              <MenuItem >Cat2</MenuItem>
-              <MenuItem >Cat3</MenuItem>
+              onChange={event => setCategory(event.target.value as string)}            >
+              <MenuItem value="ELECTRONICS">ELECTRONICS</MenuItem>
+              <MenuItem value="CLOTHING">CLOTHING</MenuItem>
+              <MenuItem value="BOOKS">BOOKS</MenuItem>
+              <MenuItem value="MOVIES">MOVIES</MenuItem>
+              <MenuItem value="GAMES">GAMES</MenuItem>
+              <MenuItem value="TOYS">TOYS</MenuItem>
+              <MenuItem value="HOME">HOME</MenuItem>
+              <MenuItem value="SPORTS">SPORTS</MenuItem>
+              <MenuItem value="AUTOMOTIVE">AUTOMOTIVE</MenuItem>
+              <MenuItem value="TOOLS">TOOLS</MenuItem>
+              <MenuItem value="HEALTH">HEALTH</MenuItem>
+              <MenuItem value="BEAUTY">BEAUTY</MenuItem>
+              <MenuItem value="GARDEN">GARDEN</MenuItem>
+              <MenuItem value="OUTDOORS">OUTDOORS</MenuItem>
+              <MenuItem value="PETS">PETS</MenuItem>
+              <MenuItem value="KIDS">KIDS</MenuItem>
+              <MenuItem value="FOOD">FOOD</MenuItem>
+              <MenuItem value="FASHION">FASHION</MenuItem>
+              <MenuItem value="GROCERY">GROCERY</MenuItem>
+              <MenuItem value="MISC">MISC</MenuItem>
+
             </Select>
           </FormControl>
           {message && <p>{message}</p>}{" "}
-          <button >Create Product</button>
+          <button onClick={addProduct}>Create Product</button>
         </Box>
         <div>
           <h3>Orders</h3>

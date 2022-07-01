@@ -80,7 +80,5 @@ const Register = () => {
 }
 
 export default Register;
-function useHistory() {
-    throw new Error('Function not implemented.');
-}
+
 
