@@ -8,6 +8,13 @@
   transition-duration: 0.2s;
 }
 
+.product img{
+  height: 250px;
+  width: 230px;
+  margin: 0px !important;
+  object-fit: contain;
+}
+
 .product h4 {
   font-size: 18px;
   line-height: 1.2;
@@ -40,4 +47,15 @@
 .cartButton {
   background-color: #e00404 !important;
   border-right: none !important;
+}
+
+.css-1402ce4-MuiGrid-root>.MuiGrid-item {
+  height: 516px;
+}
+
+.css-bhp9pd-MuiPaper-root-MuiCard-root{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px;
 }
