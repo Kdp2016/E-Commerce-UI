@@ -9,29 +9,38 @@ import { User } from "./models/User";
 import Dashboard from "./components/Dashboard";
 import Cart from "./components/Cart";
 import { Product } from "./models/Product";
+import Footer from "./components/Footer";
 
 function App() {
   const [authUser, setAuthUser] = useState<User>();
 
   return (
     <>
-      <Navbar currentUser={authUser} setCurrentUser={setAuthUser} />
+      <div className="page-container">
+        <div className="content-wrap">
 
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <Login currentUser={authUser} setCurrentUser={setAuthUser} />
-          }
-        />
-        <Route path="/register" element={<Register />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route
-          path="/dashboard"
-          element={<Dashboard currentUser={authUser} />}
-        />
-        <Route path="/" element={<Homepage />} />
-      </Routes>
+          <Navbar currentUser={authUser} setCurrentUser={setAuthUser} />
+
+          <Routes>
+            <Route
+              path="/login"
+              element={
+                <Login currentUser={authUser} setCurrentUser={setAuthUser} />
+              }
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/dashboard"
+              element={<Dashboard currentUser={authUser} />}
+            />
+            <Route path="/" element={<Homepage />} />
+          </Routes>
+
+        </div>
+      </div>
+
+      <Footer />
     </>
   );
 }
