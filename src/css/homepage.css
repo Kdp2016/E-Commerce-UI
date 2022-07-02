@@ -1,6 +1,7 @@
 .product {
   padding: 10px;
   box-shadow: none;
+  min-height: auto !important;
 }
 
 .product:hover {

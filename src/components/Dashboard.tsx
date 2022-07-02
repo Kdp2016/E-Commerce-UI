@@ -23,7 +23,7 @@ function useForceUpdate(){
 function Dashboard(props: IDashboardProps) {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([] as any);
   const [message, setMessage] = useState("");
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
@@ -41,22 +41,24 @@ function Dashboard(props: IDashboardProps) {
 
 
   useEffect(() => {
-    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products")
-      .then((resp) => resp.json())
-      .then((data) => {
+    fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products/search?seller.id=${props.currentUser?.id}`)
+      .then((resp) => {
+        if (resp.status === 200){
+          return resp.json().then((data) => {
         setProducts(data);
-        console.log(productName);
-        console.log(productDescription);
-        console.log(productImage);
-        console.log(brand);
-        console.log(price);
-        console.log(category);
       });
+        }  else {
+          setProducts([]); }
+      })
   }, []);
-
+  console.log(products);
   useEffect(() => {
     fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders")
-      .then((resp) => resp.json())
+      .then((resp) => {
+      if (resp.status === 200){
+        return resp.json()
+      }  else { setOrders([]); }
+    })
       .then((data) => {
         setOrders(data);
       });
@@ -113,7 +115,7 @@ function Dashboard(props: IDashboardProps) {
 
   const addProduct = async (e: SyntheticEvent) => {
     e.preventDefault();
-    uploadImage(e);
+    await uploadImage(e);
 
     if(isNaN(price)){
       setMessage("Price must be a number");
@@ -143,13 +145,14 @@ function Dashboard(props: IDashboardProps) {
 }
 
 
+if(!props.currentUser){
+  return(
+  <Navigate to="/login" />
+  );
 
-  return !props.currentUser ? (
-    <Navigate to="/login" />
-  ) : (
-    <>
-      <p>Welcome, </p>
-      <Container>
+} else if(props.currentUser.role === "ADMIN"){
+  return(
+     <Container>
         <h1>Admin Dashboard</h1>
         <h3>Users</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
@@ -158,15 +161,8 @@ function Dashboard(props: IDashboardProps) {
           ))}
         </Grid>
       </Container>
-      <Container>
-        <h1>Dashboard</h1>
-        <h3>Purchase History</h3>
-        <Grid container spacing={3} alignItems="center" justifyContent="center">
-          {orders.map((order: Order) => (
-            <OrderCard order={order} key={order.id} />
-          ))}
-        </Grid>
-      </Container>
+  ) } else if(props.currentUser.role === "SELLER"){
+    return(
       <Container>
         <h1>Seller Dashboard</h1>
         <Box
@@ -267,8 +263,21 @@ function Dashboard(props: IDashboardProps) {
           </Grid>
         </div>
       </Container>
-    </>
-  );
+    )
+  } else if(props.currentUser.role === "BUYER"){
+    return(
+       <Container>
+        <h1>Dashboard</h1>
+        <h3>Purchase History</h3>
+        <Grid container spacing={3} alignItems="center" justifyContent="center">
+          {orders.map((order: Order) => (
+            <OrderCard order={order} key={order.id} />
+          ))}
+        </Grid>
+      </Container>
+    )} else{
+      return null;
+    }
 }
 
 export default Dashboard;
