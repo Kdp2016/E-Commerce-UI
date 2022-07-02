@@ -30,19 +30,39 @@ let updateUser = () => {
   });
 }
 
+let deactivateUser = () => {
+  fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/users/delete/?id=${user.id}`, {
+    method: "DELETE",
+  }).then((resp) => {
+    setShow(false);
+    return resp.json();
+  });
+}
+
+let activateUser = () => {
+  fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/users/activation/?id=${user.id}`, {
+    method: "PATCH",
+}).then((resp) => {
+  setShow(false);
+  return resp.json();
+});
+}
+
   return (
     <Grid item key={user.id} xs={4} md={4} lg={2.8}>
       <Card className="product">
         <div>
-          <h4>{user.id}</h4>
-          <h3>{user.firstName}</h3>
-          <h3>{user.lastName}</h3>
-          <h3>{user.email}</h3>
-          <h3>{user.role}</h3>
+          <h2>USER ID: {user.id}</h2>
+          <h4>First Name: {user.firstName}</h4>
+          <h4>Last Name: {user.lastName}</h4>
+          <h4>Email: {user.email}</h4>
+          <h4>Role: {user.role}</h4>
+          <h3>Account Status: {user.active ? "Active" : "Inactive"}</h3>
         </div>
         <ButtonGroup>
           <Button onClick={() => setShow(true)}>Update</Button>
-          <Button>Delete</Button>
+          {user.active == true ? <Button onClick={() => deactivateUser()}>Deactivate</Button>
+           : <Button onClick={() => activateUser()}>Activate</Button>}
         </ButtonGroup>
         <div style={{ display: show ? "block" : "none" }}>
           <Box>

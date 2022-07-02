@@ -34,7 +34,7 @@ function Login(props: ILoginProps) {
     });
 
     if (resp.status !== 200) {
-        setMessage('No user record found using the provided credentials!');
+      await resp.json().then(res => setMessage(res.messages));
     } else {
       props.setCurrentUser(await resp.json());
     }
