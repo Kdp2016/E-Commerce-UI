@@ -119,7 +119,7 @@ const Cart = ({}) => {
       </h1>
       <div className="Container">
         <div className="Cart">
-          <div style={{ height: 40, width: "100%" }}>
+          <div>
             <List className="cartList">
               {cartItems.map((product: Product) => {
                 return (
