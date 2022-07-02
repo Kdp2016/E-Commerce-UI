@@ -51,18 +51,19 @@ const Register = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ firstName, lastName, email, password })
-            });
-
+            })
             if (resp.status !== 201) {
-                setMessage('The email address provided already exist!');
+                await resp.json().then(res => setMessage(res.messages));
             } else {
                 setMessage('Redirecting to login.....')
                 setTimeout(() => navigate('/login'), 2000);
-
                 
             }
         }
-    }
+
+         
+        }
+    
 
     return (
         <>
