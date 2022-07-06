@@ -22,7 +22,7 @@ function useForceUpdate() {
 
 function Dashboard(props: IDashboardProps) {
   const [users, setUsers] = useState([]);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([] as any);
   const [products, setProducts] = useState([] as any);
   const [message, setMessage] = useState("");
   const [productName, setProductName] = useState("");
@@ -54,16 +54,33 @@ function Dashboard(props: IDashboardProps) {
   }, []);
 
   useEffect(() => {
-    fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders/search?id=${props.currentUser?.id}`)
+    fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders/search?buyer.id=${props.currentUser?.id}`)
       .then((resp) => {
         if (resp.status === 200) {
-          return resp.json()
+          return resp.json().then((data) => {
+            setOrders(data);
+          });
         } else { setOrders([]); }
       })
-      .then((data) => {
-        setOrders(data);
-      });
+
   }, []);
+
+  console.log(products);
+  console.log(orders);
+
+  useEffect(() => {
+    fetch('http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders').then((resp) => {
+      if (resp.status === 200) {
+        return resp.json();
+      } else {
+        setOrders([]);
+      }
+    }).then((data) => {
+      let sellerOrders = data.orderItems.filter((orderItem: { product: { seller: { id: number | undefined; }; }; }) => orderItem.product.seller.id === props.currentUser?.id);
+      console.log(sellerOrders);
+    })
+
+  })
 
   useEffect(() => {
     fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/users")
