@@ -15,7 +15,7 @@ interface IDashboardProps {
   currentUser: User | undefined;
 }
 
-function useForceUpdate(){
+function useForceUpdate() {
   const [value, setValue] = useState(0);
   return () => setValue(value => value + 1);
 }
@@ -43,22 +43,23 @@ function Dashboard(props: IDashboardProps) {
   useEffect(() => {
     fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products/search?seller.id=${props.currentUser?.id}`)
       .then((resp) => {
-        if (resp.status === 200){
+        if (resp.status === 200) {
           return resp.json().then((data) => {
-        setProducts(data);
-      });
-        }  else {
-          setProducts([]); }
+            setProducts(data);
+          });
+        } else {
+          setProducts([]);
+        }
       })
   }, []);
-  console.log(products);
+
   useEffect(() => {
-    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders")
+    fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders/search?id=${props.currentUser?.id}`)
       .then((resp) => {
-      if (resp.status === 200){
-        return resp.json()
-      }  else { setOrders([]); }
-    })
+        if (resp.status === 200) {
+          return resp.json()
+        } else { setOrders([]); }
+      })
       .then((data) => {
         setOrders(data);
       });
@@ -111,48 +112,49 @@ function Dashboard(props: IDashboardProps) {
       return resp.json();
     }).then((data) => {
       setProductImage(data.secure_url);
-    })}
+    })
+  }
 
   const addProduct = async (e: SyntheticEvent) => {
     e.preventDefault();
     await uploadImage(e);
 
-    if(isNaN(price)){
+    if (isNaN(price)) {
       setMessage("Price must be a number");
     }
     else if (!productName || !productDescription || !productImage || !brand || !price || !category) {
       setMessage("Please fill in all fields");
-    }else if(price < 0){
+    } else if (price < 0) {
       setMessage("Price must be a number.")
-    } else if(price < 0){
+    } else if (price < 0) {
       setMessage("Price must be greater than 0.")
     }
-      else {
-       
+    else {
+
       let resp = await fetch('http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products', {
-      method: 'POST',
-      headers: {
+        method: 'POST',
+        headers: {
           'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ productName, productDescription, productImage, brand, price, category, seller })
+        },
+        body: JSON.stringify({ productName, productDescription, productImage, brand, price, category, seller })
 
-  });
-  setMessage('Creating product.....')
-  setTimeout(() => setMessage("Product Created!"), 2000);
-  forceUpdate();
+      });
+      setMessage('Creating product.....')
+      setTimeout(() => setMessage("Product Created!"), 2000);
+      forceUpdate();
 
+    }
   }
-}
 
 
-if(!props.currentUser){
-  return(
-  <Navigate to="/login" />
-  );
+  if (!props.currentUser) {
+    return (
+      <Navigate to="/login" />
+    );
 
-} else if(props.currentUser.role === "ADMIN"){
-  return(
-     <Container>
+  } else if (props.currentUser.role === "ADMIN") {
+    return (
+      <Container>
         <h1>Admin Dashboard</h1>
         <h3>Users</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
@@ -161,8 +163,9 @@ if(!props.currentUser){
           ))}
         </Grid>
       </Container>
-  ) } else if(props.currentUser.role === "SELLER"){
-    return(
+    )
+  } else if (props.currentUser.role === "SELLER") {
+    return (
       <Container>
         <h1>Seller Dashboard</h1>
         <Box
@@ -211,7 +214,8 @@ if(!props.currentUser){
           <label htmlFor="image">Image URL</label>
           <input id="image" onChange={(event) => {
             // @ts-ignore: Object is possibly 'null'.
-            setSelectedImage((event.target as HTMLInputElement).files[0]!)}} type="file"></input>
+            setSelectedImage((event.target as HTMLInputElement).files[0]!)
+          }} type="file"></input>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
             <Select
@@ -264,9 +268,9 @@ if(!props.currentUser){
         </div>
       </Container>
     )
-  } else if(props.currentUser.role === "BUYER"){
-    return(
-       <Container>
+  } else if (props.currentUser.role === "BUYER") {
+    return (
+      <Container>
         <h1>Dashboard</h1>
         <h3>Purchase History</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
@@ -275,9 +279,10 @@ if(!props.currentUser){
           ))}
         </Grid>
       </Container>
-    )} else{
-      return null;
-    }
+    )
+  } else {
+    return null;
+  }
 }
 
 export default Dashboard;
