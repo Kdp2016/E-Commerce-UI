@@ -1,0 +1,7 @@
+.css-1402ce4-MuiGrid-root {
+    min-height: 100vh;
+}
+
+.gridItem {
+    height: auto !important;
+}
