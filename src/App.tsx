@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
-import Register from "./components/Register";
+import Register from "./components/AuthPage";
 import Homepage from "./components/Homepage";
 import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import Dashboard from "./components/Dashboard";
 import Cart from "./components/Cart";
 import { Product } from "./models/Product";
 import Footer from "./components/Footer";
+import AuthPage from "./components/AuthPage";
 
 function App() {
   const [authUser, setAuthUser] = useState<User>();
@@ -23,12 +24,11 @@ function App() {
 
           <Routes>
             <Route
-              path="/login"
+              path="/auth"
               element={
-                <Login currentUser={authUser} setCurrentUser={setAuthUser} />
+                <AuthPage currentUser={authUser} setCurrentUser={setAuthUser} />
               }
             />
-            <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<Cart />} />
             <Route
               path="/dashboard"
