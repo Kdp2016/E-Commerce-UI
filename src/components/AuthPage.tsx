@@ -9,6 +9,7 @@ interface ILoginProps {
     setCurrentUser: (nextUser: User) => void;
 }
 
+const newLocal = document.querySelector(".container");
 const AuthPage = (props: ILoginProps) => {
 
     const [first, setFirst] = useState("");
@@ -18,20 +19,14 @@ const AuthPage = (props: ILoginProps) => {
     const [repeatPassword, setRepeatPassword] = useState("");
     const [message, setMessage] = useState("");
 
+    const [flipper, setFlipper] = useState(false);
+
     const navigate = useNavigate();
+    const container = newLocal;
 
-    const LoginButton = document.getElementById("signIn");
-    const RegisterButton = document.getElementById("signUp");
-    const container = document.querySelector(".container");
-
-    let loginButton = (e: SyntheticEvent) => {
-        console.log("srssly");
-        container!.classList.remove("right-panel-active");
+    let flip = (e: SyntheticEvent) => {
+        setFlipper(!flipper);
     };
-
-    let registerButton = (e: SyntheticEvent) => {
-        container!.classList.add("right-panel-active");
-    }
 
     let updateFirst = (e: SyntheticEvent) => {
         setFirst((e.target as HTMLInputElement).value);
@@ -111,7 +106,7 @@ const AuthPage = (props: ILoginProps) => {
     return (
         props.currentUser ? <Navigate to="/" /> : <>
             <div className='authContainer'>
-                <div className="container right-panel-active">
+                <div className={`container ${flipper ? 'right-panel-active' : ''}`}>
 
                     <div className="container__form container--signup">
                         <form action="#" className="form" id="form1">
@@ -140,10 +135,10 @@ const AuthPage = (props: ILoginProps) => {
                     <div className="container__overlay">
                         <div className="overlay">
                             <div className="overlay__panel overlay--left">
-                                <button className="btn" id="signIn" onClick={loginButton}>Sign In</button>
+                                <button className="btn" id="signIn" onClick={flip}>Sign In</button>
                             </div>
                             <div className="overlay__panel overlay--right">
-                                <button className="btn" id="signUp" onClick={registerButton}>Sign Up</button>
+                                <button className="btn" id="signUp" onClick={flip}>Sign Up</button>
                             </div>
                         </div>
                     </div>
