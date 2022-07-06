@@ -29,7 +29,7 @@ function App() {
                 <AuthPage currentUser={authUser} setCurrentUser={setAuthUser} />
               }
             />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cart" element={<Cart currentUser={authUser} />} />
             <Route
               path="/dashboard"
               element={<Dashboard currentUser={authUser} />}

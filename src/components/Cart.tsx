@@ -26,12 +26,18 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Product } from "../models/Product";
 import "../css/cart.css";
 import ProductCard from "./Cards/ProductCard";
+import { User } from "../models/User";
 
-const Cart = ({}) => {
+interface ICartProps {
+  currentUser: User | undefined;
+}
+
+function Cart(props: ICartProps) {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
     const saved = localStorage.getItem("cartItems");
     const initialValue = JSON.parse(saved || "[]");
-    return initialValue || "[]"; });
+    return initialValue || "[]";
+  });
   const [cartTotal, setCartTotal] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [streetAdress, setStreetAdress] = useState("");
@@ -39,12 +45,22 @@ const Cart = ({}) => {
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [message, setMessage] = useState("");
+  const [fullAddress, setFullAddress] = useState("");
+  const [user, setUser] = useState<User>();
+
 
   useEffect(() => {
     calculateTotal(cartItems);
     getTotalItems(cartItems);
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    if (props.currentUser) {
+      setUser(props.currentUser);
+    }
   }, [cartItems]);
+
+  useEffect(() => {
+    setFullAddress(`${streetAdress}, ${city}, ${state}, ${zipcode}`);
+  })
 
   const getTotalItems = (items: Product[]) => {
     setTotalItems(items.reduce((acc, item) => acc + item.quantity, 0));
@@ -99,7 +115,10 @@ const Cart = ({}) => {
     let Zipcodenumber = parseInt(zipcode);
   };
 
-  const placeorder = (event: SyntheticEvent) => {
+
+
+  const placeorder = async (event: SyntheticEvent) => {
+
     if (!streetAdress || !city || !state || !zipcode) {
       setMessage("Missing information, Please fill all Boxes.");
     } else if (state.length !== 2) {
@@ -109,9 +128,26 @@ const Cart = ({}) => {
     } else if (isNaN(+zipcode)) {
       setMessage("Zip code must be numbers only.");
     } else {
-      setMessage("Order Placed.");
-    }
-  };
+      setMessage("");
+      console.log("FETCH PLEAASE");
+      await fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            buyer: {
+              id: user!.id,
+            },
+            address: streetAdress,
+            orderItems: cartItems.map(item => { return { productId: item.id, quantity: item.quantity } }),
+            status: "ORDERED",
+            total: cartTotal,
+          })
+        });
+    };
+  }
   return (
     <>
       <h1 className="cartTitle">
@@ -227,7 +263,7 @@ const Cart = ({}) => {
                 </Typography>
               </div>
             </div>
-
+            <button onClick={placeorder}>Place Order</button>
             <button onClick={placeorder}>Place Order</button>
           </div>
         </div>
