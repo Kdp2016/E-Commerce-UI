@@ -25,7 +25,7 @@ const AuthPage = (props: ILoginProps) => {
     const container = document.querySelector(".container");
 
     let loginButton = (e: SyntheticEvent) => {
-        console.log("PLEaSE WORK");
+        console.log("srssly");
         container!.classList.remove("right-panel-active");
     };
 
