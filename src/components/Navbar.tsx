@@ -84,7 +84,7 @@ function Navbar(props: INavBarProps) {
                   className="nav-item"
                   variant="h6"
                   color="inherit"
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/auth")}
                 >
                   Login
                 </Typography>
@@ -94,7 +94,7 @@ function Navbar(props: INavBarProps) {
                   className="nav-item"
                   variant="h6"
                   color="inherit"
-                  onClick={() => navigate("/register")}
+                  onClick={() => navigate("/auth")}
                 >
                   Register
                 </Typography>
