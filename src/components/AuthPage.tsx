@@ -12,8 +12,8 @@ interface ILoginProps {
 const newLocal = document.querySelector(".container");
 const AuthPage = (props: ILoginProps) => {
 
-    const [first, setFirst] = useState("");
-    const [last, setLast] = useState("");
+    const [firstName, setFirst] = useState("");
+    const [lastName, setLast] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -51,7 +51,7 @@ const AuthPage = (props: ILoginProps) => {
     }
     const register = async (e: SyntheticEvent) => {
         e.preventDefault();
-        if (!first || !last || !email || !password || !repeatPassword) {
+        if (!firstName || !lastName || !email || !password || !repeatPassword) {
             setMessage('Missing information, Please fill all Boxes.');
         } else if (!validateEmail(email)) {
             setMessage('Please enter a valid email.');
@@ -67,13 +67,13 @@ const AuthPage = (props: ILoginProps) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ first, last, email, password })
+                body: JSON.stringify({ firstName, lastName, email, password })
             })
             if (resp.status !== 201) {
                 await resp.json().then(res => setMessage(res.messages));
             } else {
                 setMessage('Redirecting to login.....')
-                setTimeout(() => navigate('/login'), 2000);
+                setTimeout(() => navigate('/auth'), 1000);
 
             }
         }
@@ -111,8 +111,8 @@ const AuthPage = (props: ILoginProps) => {
                     <div className="container__form container--signup">
                         <form action="#" className="form" id="form1">
                             <h2 className="form__title">New User?</h2>
-                            <input type="text" onChange={updateFirst} placeholder="First" className='input'></input>
-                            <input type="text" onChange={updateLast} placeholder="Last" className='input'></input>
+                            <input type="text" onChange={updateFirst} placeholder="First Name" className='input'></input>
+                            <input type="text" onChange={updateLast} placeholder="Last Name" className='input'></input>
                             <input type="email" onChange={updateEmail} placeholder="Email" className='input'></input>
                             <input type="password" onChange={updatePassword} placeholder="Password" className='input'></input>
                             <input type="password" onChange={updateRepeatPassword} placeholder="Repeat Password" className='input'></input>
