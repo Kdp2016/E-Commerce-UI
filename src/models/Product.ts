@@ -10,4 +10,5 @@ export type Product = {
   seller: User;
   category: string;
   quantity: number;
+  active: boolean;
 };
