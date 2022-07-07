@@ -261,10 +261,17 @@ function Dashboard(props: IDashboardProps) {
         <div>
           <h3>Orders</h3>
           <Grid container spacing={3} alignItems="center" justifyContent="center">
-            {orders.length <= 0 && <h1>No Orders</h1>}
+            <h1>No Orders :(</h1>
+
+          </Grid>
+        </div>
+        <div>
+          <h3>Purchase History</h3>
+          <Grid container spacing={3} alignItems="center" justifyContent="center">
+            {orders.length <= 0 && <h1>No Purchases</h1>}
 
             {orders.length > 0 && orders.map((order: Order) => (
-              <SellerOrderCard order={order} key={order.id} />
+              <OrderCard order={order} key={order.id} />
             ))}
 
           </Grid>

@@ -17,6 +17,7 @@
 }
 
 .product h4 {
+  max-width: 250px;
   font-size: 18px;
   line-height: 1.2;
   font-weight: 400;
@@ -25,6 +26,7 @@
 }
 
 .product h6 {
+
   margin-top: 5px;
 }
 
@@ -50,7 +52,7 @@
   border-right: none !important;
 }
 
-.css-1402ce4-MuiGrid-root {
+.css-1bv91zq {
   justify-content: flex-start !important;
 }
 
