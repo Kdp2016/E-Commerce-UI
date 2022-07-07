@@ -103,7 +103,7 @@ function Navbar(props: INavBarProps) {
                 <ShoppingBagIcon
                   className="nav-item"
                   id="bagicon"
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/auth")}
                 />
               </ListItemText>
             </>

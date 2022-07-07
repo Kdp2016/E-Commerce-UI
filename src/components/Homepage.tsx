@@ -15,7 +15,7 @@ function Homepage() {
     return initialValue || "[]";
   });
   useEffect(() => {
-    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products")
+    fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products/active")
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
@@ -39,7 +39,7 @@ function Homepage() {
     });
   };
   console.log(cartItems);
-  
+
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
     console.log(cartItems);

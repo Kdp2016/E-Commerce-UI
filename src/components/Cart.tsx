@@ -143,7 +143,7 @@ function Cart(props: ICartProps) {
             address: streetAdress,
             orderItems: cartItems.map(item => { return { productId: item.id, quantity: item.quantity } }),
             status: "ORDERED",
-            total: cartTotal,
+            total: (parseFloat(cartTotal) * 1.07).toFixed(2),
           })
         });
     };
@@ -263,7 +263,6 @@ function Cart(props: ICartProps) {
                 </Typography>
               </div>
             </div>
-            <button onClick={placeorder}>Place Order</button>
             <button onClick={placeorder}>Place Order</button>
           </div>
         </div>

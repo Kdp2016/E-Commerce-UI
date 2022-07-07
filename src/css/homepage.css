@@ -9,7 +9,7 @@
   transition-duration: 0.2s;
 }
 
-.product img{
+.product img {
   height: 250px;
   width: 230px;
   margin: 0px !important;
@@ -50,17 +50,19 @@
   border-right: none !important;
 }
 
-.css-1402ce4-MuiGrid-root>.MuiGrid-item {
-  height: 516px;
+.css-1402ce4-MuiGrid-root {
+  justify-content: flex-start !important;
 }
 
-.css-1oqqzyl-MuiContainer-root{
+.css-1oqqzyl-MuiContainer-root {
   margin-bottom: 30px;
 }
-.css-1qsxih2{
+
+.css-1qsxih2 {
   margin-bottom: 30px;
 }
-.css-bhp9pd-MuiPaper-root-MuiCard-root{
+
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

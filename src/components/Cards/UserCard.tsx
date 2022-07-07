@@ -60,9 +60,9 @@ const UserCard = ({ user }: Props) => {
           <h3>Account Status: {user.active ? "Active" : "Inactive"}</h3>
         </div>
         <ButtonGroup>
-          <Button onClick={() => setShow(true)}>Update</Button>
-          {user.active == true ? <Button onClick={() => deactivateUser()}>Deactivate</Button>
-            : <Button onClick={() => activateUser()}>Activate</Button>}
+          <Button onClick={() => setShow(true)} variant="contained" color="error">Update</Button>
+          {user.active == true ? <Button onClick={() => deactivateUser()} variant="contained" color="error">Deactivate</Button>
+            : <Button onClick={() => activateUser()} variant="contained" color="error">Activate</Button>}
         </ButtonGroup>
         <div style={{ display: show ? "block" : "none" }}>
           <Box>
@@ -81,7 +81,7 @@ const UserCard = ({ user }: Props) => {
               </Select>
             </FormControl>
 
-            <Button onClick={updateUser}>Update</Button>
+            <Button onClick={updateUser} variant="contained" color="error">Update</Button>
           </Box>
         </div>
       </Card>

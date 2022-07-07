@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Box, Button, ButtonGroup, Container, FormControl, Grid, Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Order } from "../models/Order";
@@ -10,6 +10,7 @@ import SellerOrderCard from "./Cards/SellerOrderCard";
 import UserCard from "./Cards/UserCard";
 import { ClassNames } from "@emotion/react";
 import { Co2Sharp } from "@mui/icons-material";
+import "../css/dashboard.css";
 
 interface IDashboardProps {
   currentUser: User | undefined;
@@ -36,10 +37,6 @@ function Dashboard(props: IDashboardProps) {
   const navigate = useNavigate();
   const forceUpdate = useForceUpdate();
 
-
-
-
-
   useEffect(() => {
     fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products/search?seller.id=${props.currentUser?.id}`)
       .then((resp) => {
@@ -64,23 +61,6 @@ function Dashboard(props: IDashboardProps) {
       })
 
   }, []);
-
-  console.log(products);
-  console.log(orders);
-
-  useEffect(() => {
-    fetch('http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders').then((resp) => {
-      if (resp.status === 200) {
-        return resp.json();
-      } else {
-        setOrders([]);
-      }
-    }).then((data) => {
-      let sellerOrders = data.orderItems.filter((orderItem: { product: { seller: { id: number | undefined; }; }; }) => orderItem.product.seller.id === props.currentUser?.id);
-      console.log(sellerOrders);
-    })
-
-  })
 
   useEffect(() => {
     fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/users")
@@ -166,7 +146,7 @@ function Dashboard(props: IDashboardProps) {
 
   if (!props.currentUser) {
     return (
-      <Navigate to="/login" />
+      <Navigate to="/auth" />
     );
 
   } else if (props.currentUser.role === "ADMIN") {
@@ -228,44 +208,55 @@ function Dashboard(props: IDashboardProps) {
             defaultValue=""
             onChange={updatePrice}
           />
-          <label htmlFor="image">Image URL</label>
-          <input id="image" onChange={(event) => {
+          <div className="bottomForm">
+            <label htmlFor="contained-button-file" id="imageLabel">
+              <Input id="contained-button-file" type="file" onChange={(event) => {
+                // @ts-ignore: Object is possibly 'null'.
+                setSelectedImage((event.target as HTMLInputElement).files[0]!)
+              }} />
+              <Button variant="contained" component="span" className="uploadImage">
+                Upload Image
+              </Button>
+            </label>
+            {/* <input id="image" onChange={(event) => {
             // @ts-ignore: Object is possibly 'null'.
             setSelectedImage((event.target as HTMLInputElement).files[0]!)
-          }} type="file"></input>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={category}
-              label="Category"
-              onChange={event => setCategory(event.target.value as string)}            >
-              <MenuItem value="ELECTRONICS">ELECTRONICS</MenuItem>
-              <MenuItem value="CLOTHING">CLOTHING</MenuItem>
-              <MenuItem value="BOOKS">BOOKS</MenuItem>
-              <MenuItem value="MOVIES">MOVIES</MenuItem>
-              <MenuItem value="GAMES">GAMES</MenuItem>
-              <MenuItem value="TOYS">TOYS</MenuItem>
-              <MenuItem value="HOME">HOME</MenuItem>
-              <MenuItem value="SPORTS">SPORTS</MenuItem>
-              <MenuItem value="AUTOMOTIVE">AUTOMOTIVE</MenuItem>
-              <MenuItem value="TOOLS">TOOLS</MenuItem>
-              <MenuItem value="HEALTH">HEALTH</MenuItem>
-              <MenuItem value="BEAUTY">BEAUTY</MenuItem>
-              <MenuItem value="GARDEN">GARDEN</MenuItem>
-              <MenuItem value="OUTDOORS">OUTDOORS</MenuItem>
-              <MenuItem value="PETS">PETS</MenuItem>
-              <MenuItem value="KIDS">KIDS</MenuItem>
-              <MenuItem value="FOOD">FOOD</MenuItem>
-              <MenuItem value="FASHION">FASHION</MenuItem>
-              <MenuItem value="GROCERY">GROCERY</MenuItem>
-              <MenuItem value="MISC">MISC</MenuItem>
+          }} type="file"></input> */}
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel color="error" id="demo-simple-select-helper-label">Category</InputLabel>
+              <Select
+                color="error"
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={category}
+                label="Category"
+                onChange={event => setCategory(event.target.value as string)}            >
+                <MenuItem value="ELECTRONICS">ELECTRONICS</MenuItem>
+                <MenuItem value="CLOTHING">CLOTHING</MenuItem>
+                <MenuItem value="BOOKS">BOOKS</MenuItem>
+                <MenuItem value="MOVIES">MOVIES</MenuItem>
+                <MenuItem value="GAMES">GAMES</MenuItem>
+                <MenuItem value="TOYS">TOYS</MenuItem>
+                <MenuItem value="HOME">HOME</MenuItem>
+                <MenuItem value="SPORTS">SPORTS</MenuItem>
+                <MenuItem value="AUTOMOTIVE">AUTOMOTIVE</MenuItem>
+                <MenuItem value="TOOLS">TOOLS</MenuItem>
+                <MenuItem value="HEALTH">HEALTH</MenuItem>
+                <MenuItem value="BEAUTY">BEAUTY</MenuItem>
+                <MenuItem value="GARDEN">GARDEN</MenuItem>
+                <MenuItem value="OUTDOORS">OUTDOORS</MenuItem>
+                <MenuItem value="PETS">PETS</MenuItem>
+                <MenuItem value="KIDS">KIDS</MenuItem>
+                <MenuItem value="FOOD">FOOD</MenuItem>
+                <MenuItem value="FASHION">FASHION</MenuItem>
+                <MenuItem value="GROCERY">GROCERY</MenuItem>
+                <MenuItem value="MISC">MISC</MenuItem>
 
-            </Select>
-          </FormControl>
-          {message && <p>{message}</p>}{" "}
-          <button onClick={addProduct}>Create Product</button>
+              </Select>
+            </FormControl>
+            <Button variant="contained" color="error" component="span" onClick={addProduct}>Add Product</Button>
+          </div>{message && <p>{message}</p>}{" "}
+
         </Box>
         <div>
           <h3>Orders</h3>
@@ -278,6 +269,7 @@ function Dashboard(props: IDashboardProps) {
 
           </Grid>
         </div>
+
         <div>
           <h3>Your Products</h3>
           <Grid container spacing={3} alignItems="center" justifyContent="center">
