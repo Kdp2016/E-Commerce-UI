@@ -24,6 +24,7 @@ function useForceUpdate() {
 function Dashboard(props: IDashboardProps) {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([] as any);
+  const [sellerOrders, setSellerOrders] = useState([] as any);
   const [products, setProducts] = useState([] as any);
   const [message, setMessage] = useState("");
   const [productName, setProductName] = useState("");
@@ -36,6 +37,19 @@ function Dashboard(props: IDashboardProps) {
   const [seller, setSeller] = useState(props.currentUser);
   const navigate = useNavigate();
   const forceUpdate = useForceUpdate();
+
+  useEffect(() => {
+    fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders/seller/${props.currentUser?.id}`)
+      .then((resp) => {
+        if (resp.status === 200) {
+          return resp.json().then((data) => {
+            setSellerOrders(data);
+          });
+        } else {
+          setSellerOrders([]);
+        }
+      })
+  }, []);
 
   useEffect(() => {
     fetch(`http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/products/search?seller.id=${props.currentUser?.id}`)
@@ -261,7 +275,11 @@ function Dashboard(props: IDashboardProps) {
         <div>
           <h3>Orders</h3>
           <Grid container spacing={3} alignItems="center" justifyContent="center">
-            <h1>No Orders :(</h1>
+            {sellerOrders.length <= 0 && <h1>No Sales</h1>}
+
+            {sellerOrders.length > 0 && orders.map((order: Order) => (
+              <SellerOrderCard order={order} key={order.id} />
+            ))}
 
           </Grid>
         </div>
@@ -295,7 +313,9 @@ function Dashboard(props: IDashboardProps) {
         <h1>Dashboard</h1>
         <h3>Purchase History</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
-          {orders.map((order: Order) => (
+          {orders.length <= 0 && <h1>No Purchases</h1>}
+
+          {orders.length > 0 && orders.map((order: Order) => (
             <OrderCard order={order} key={order.id} />
           ))}
         </Grid>

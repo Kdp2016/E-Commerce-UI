@@ -115,10 +115,8 @@ function Cart(props: ICartProps) {
     let Zipcodenumber = parseInt(zipcode);
   };
 
-
-
   const placeorder = async (event: SyntheticEvent) => {
-
+    let address = streetAdress + "," + city + "," + state + "," + zipcode
     if (!streetAdress || !city || !state || !zipcode) {
       setMessage("Missing information, Please fill all Boxes.");
     } else if (state.length !== 2) {
@@ -129,7 +127,6 @@ function Cart(props: ICartProps) {
       setMessage("Zip code must be numbers only.");
     } else {
       setMessage("");
-      console.log("FETCH PLEAASE");
       await fetch("http://Ecommerce-env.eba-hz3mknpp.us-east-1.elasticbeanstalk.com/ecommerce/orders",
         {
           method: "POST",
@@ -140,7 +137,7 @@ function Cart(props: ICartProps) {
             buyer: {
               id: user!.id,
             },
-            address: streetAdress,
+            address: streetAdress + "," + city + "," + state + "," + zipcode,
             orderItems: cartItems.map(item => { return { productId: item.id, quantity: item.quantity } }),
             status: "ORDERED",
             total: (parseFloat(cartTotal) * 1.07).toFixed(2),
