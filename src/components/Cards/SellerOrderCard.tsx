@@ -17,7 +17,7 @@ const SellerOrderCard = ({ order }: Props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: order.id,
+        id: order.orderId,
         status: "DELIVERED",
       }),
     }).then((resp) => {
@@ -34,7 +34,7 @@ const SellerOrderCard = ({ order }: Props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: order.id,
+        id: order.orderId,
         status: "CANCELLED",
       }),
     }).then((resp) => {
@@ -46,10 +46,10 @@ const SellerOrderCard = ({ order }: Props) => {
   if (order.status == "ORDERED") {
 
     return (
-      <Grid item key={order.id} xs={4} md={4} lg={2.8}>
+      <Grid item key={order.orderId} xs={4} md={4} lg={2.8}>
         <Card className="product">
           <div>
-            <h2>Order: {order.id}</h2>
+            <h2>Order: {order.orderId}</h2>
             <h2>Customer Id: {order.customer_id}</h2>
             <h4>Shipping Address: {order.address}</h4>
             <h4>Total: ${order.total}</h4>
@@ -64,10 +64,10 @@ const SellerOrderCard = ({ order }: Props) => {
     );
   } else {
     return (
-      <Grid item key={order.id} xs={4} md={4} lg={2.8}>
+      <Grid item key={order.orderId} xs={4} md={4} lg={2.8}>
         <Card className="product">
           <div>
-            <h2>Order: {order.id}</h2>
+            <h2>Order: {order.orderId}</h2>
             <h2>Customer Id: {order.customer_id}</h2>
             <h4>Shipping Address: {order.address}</h4>
             <h4>Total: ${order.total}</h4>
