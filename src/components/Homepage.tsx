@@ -68,7 +68,8 @@ function Homepage() {
       <Container>
         <h3>Latest Products</h3>
         <Grid container spacing={3} alignItems="center" justifyContent="center">
-          {products.map((product: Product) => (
+          {products.length <= 0 && <h1>No Products! Sorry :(</h1>}
+          {products.length > 0 && products.map((product: Product) => (
             <ProductCard
               product={product}
               key={product.id}
