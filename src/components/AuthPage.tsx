@@ -72,9 +72,7 @@ const AuthPage = (props: ILoginProps) => {
             if (resp.status !== 201) {
                 await resp.json().then(res => setMessage(res.messages));
             } else {
-                setMessage('Redirecting to login.....')
-                setTimeout(() => navigate('/auth'), 1000);
-
+                setFlipper(false);
             }
         }
 

@@ -16,6 +16,7 @@ import { User } from "../models/User";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Style } from "util";
 import "../css/navbar.css";
+import { SyntheticEvent } from "react";
 //import { User } from "../models/user";
 
 interface INavBarProps {
@@ -26,8 +27,9 @@ interface INavBarProps {
 function Navbar(props: INavBarProps) {
   const navigate = useNavigate();
 
-  function logout() {
-    console.log("Logout not implemented yet");
+  function logout(e: SyntheticEvent) {
+    props.setCurrentUser(undefined);
+    navigate('/auth')
   }
 
   function goTo(route: string) {
