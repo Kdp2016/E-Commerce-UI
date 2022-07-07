@@ -7,6 +7,7 @@ export type Order = {
     address: string;
     status: string;
     total: number;
+    customer_id: number;
 };
 
 export type OrderItems = {
