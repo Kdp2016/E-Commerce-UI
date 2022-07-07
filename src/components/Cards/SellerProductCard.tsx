@@ -1,6 +1,7 @@
 import { Box, Button, ButtonGroup, Card, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { SyntheticEvent, useState, useEffect } from "react";
 import { Product } from "../../models/Product";
+import "../../css/dashboard.css"
 
 type Props = {
   product: Product;
@@ -127,8 +128,8 @@ const SellerProductCard = ({ product }: Props) => {
   }
 
   return (
-    <Grid item key={product.id} xs={4} md={4} lg={2.8} className="gridItem">
-      <Card className="product">
+    <Grid item key={product.id} className="gridItem">
+      <Card className="product flex">
         <div>
           <div>
             <CardMedia component="img" image={product.productImage} />
@@ -139,8 +140,8 @@ const SellerProductCard = ({ product }: Props) => {
           </div>
           <ButtonGroup>
             <Button onClick={() => setShow(true)} variant="contained" color="error">Update</Button>
-            {product.active == true ? <Button onClick={() => deactivateProduct()}>Deactivate</Button>
-              : < Button onClick={() => activateProduct()}>Activate</Button>}
+            {product.active == true ? <Button onClick={() => deactivateProduct()} variant="contained" color="error">Deactivate</Button>
+              : < Button onClick={() => activateProduct()} variant="contained" color="error">Activate</Button>}
           </ButtonGroup>
         </div>
 
@@ -178,7 +179,6 @@ const SellerProductCard = ({ product }: Props) => {
                 defaultValue={price}
                 onChange={updatePrice}
               />
-              <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
               <Select
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"

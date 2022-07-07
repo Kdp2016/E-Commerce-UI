@@ -1,7 +1,39 @@
-.css-1402ce4-MuiGrid-root {
-    min-height: 100vh;
-}
-
 .gridItem {
     height: auto !important;
+}
+
+.bottomForm {
+    align-items: center;
+    width: 40%;
+    display: flex;
+}
+
+.bottomForm span {
+    height: 56px !important;
+}
+
+
+#imageLabel {
+    height: 56px !important;
+}
+
+#imageLabel div {
+    display: none !important;
+}
+
+#imageLabel span {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.uploadImage {
+    background-color: rgb(72, 72, 72) !important;
+}
+
+.uploadImage:hover {
+    background-color: black !important;
+}
+
+.flex {
+    flex-direction: row !important;
 }
