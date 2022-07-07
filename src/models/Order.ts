@@ -2,6 +2,7 @@ import { User } from "./User";
 
 export type Order = {
     id: number;
+    orderId: number;
     buyer: User;
     orderItems: OrderItems[];
     address: string;
