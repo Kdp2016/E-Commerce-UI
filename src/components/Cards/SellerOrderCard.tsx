@@ -50,10 +50,7 @@ const SellerOrderCard = ({ order }: Props) => {
         <Card className="product">
           <div>
             <h2>Order: {order.id}</h2>
-            <h4>Customer:</h4>
-            <h4>First Name: {order.buyer.firstName}</h4>
-            <h4>Last Name: {order.buyer.lastName}</h4>
-            <h4>Email: {order.buyer.email}</h4>
+            <h2>Customer Id: {order.customer_id}</h2>
             <h4>Shipping Address: {order.address}</h4>
             <h4>Total: ${order.total}</h4>
             <h4>Status: {order.status}</h4>
@@ -71,10 +68,7 @@ const SellerOrderCard = ({ order }: Props) => {
         <Card className="product">
           <div>
             <h2>Order: {order.id}</h2>
-            <h4>Customer:</h4>
-            <h4>First Name: {order.buyer.firstName}</h4>
-            <h4>Last Name: {order.buyer.lastName}</h4>
-            <h4>Email: {order.buyer.email}</h4>
+            <h2>Customer Id: {order.customer_id}</h2>
             <h4>Shipping Address: {order.address}</h4>
             <h4>Total: ${order.total}</h4>
             <h4>Status: {order.status}</h4>
