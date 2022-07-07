@@ -277,7 +277,7 @@ function Dashboard(props: IDashboardProps) {
           <Grid container spacing={3} alignItems="center" justifyContent="center">
             {sellerOrders.length <= 0 && <h1>No Sales</h1>}
 
-            {sellerOrders.length > 0 && orders.map((order: Order) => (
+            {sellerOrders.length > 0 && sellerOrders.map((order: Order) => (
               <SellerOrderCard order={order} key={order.id} />
             ))}
 
